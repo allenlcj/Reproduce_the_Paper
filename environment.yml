@@ -1,0 +1,23 @@
+name: apt-sat
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - swig                 # <--- 关键修改：添加这一行！
+  - pip
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - scipy
+  - jupyter
+  - pip:
+      - torch>=2.0.0
+      - torchvision>=0.15.0
+      - torchaudio>=2.0.0
+      - networkx
+      - tqdm
+      - scikit-learn       # <--- Added for dnn_profiler.py
+      - networkx
+      - tqdm

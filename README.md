@@ -1,3 +1,5 @@
-Reproduce the paper: 
+# APT-SAT-Reproduction
 
-APT-SAT: An Adaptive DNN Partitioning and  Task Offloading Framework within Collaborative  Satellite Computing Environments
+Structure:
+- `data/`: Generated CSV data and DNN profiles
+- `src/`: Source code
