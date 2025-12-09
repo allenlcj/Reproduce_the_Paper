@@ -2,7 +2,7 @@
 import networkx as nx
 import numpy as np
 import torch
-from config import *
+from src.common.config import *
 
 # --- 辅助函数：相对动作解码 (支持圆柱体拓扑) ---
 def decode_relative_action(current_loc, action_idx, net_manager):

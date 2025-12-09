@@ -1,8 +1,8 @@
 # src/partition_algorithm.py
 from itertools import combinations
 import numpy as np
-from config import *
-from satellite_model import calculate_comp_delay, calculate_comp_energy, calculate_trans_rate
+from src.common.config import *
+from src.models.satellite_model import calculate_comp_delay, calculate_comp_energy, calculate_trans_rate
 
 def calculate_workload_variance(workloads):
     """ 计算负载方差 (公式 3) """
@@ -76,10 +76,10 @@ def adaptive_dnn_partitioning_algorithm(layers, L, theta=THETA, delta=DELTA, zet
     
     # 遍历所有可能的 L-1 个切分点组合
     for cpp in combinations(search_space, L - 1):
-        VAR, T, E, workloads = calculate_partition_metrics(dnn_layers, cpp, L)
+        VAR, T, E, workloads = calculate_partition_metrics(layers, cpp, L)
         
         # 归一化加权 (Line 4)
-        score = THETA * VAR + DELTA * T + ZETA * E
+        score = theta * VAR + delta * T + zeta * E
         
         if score < best_score:
             best_score = score

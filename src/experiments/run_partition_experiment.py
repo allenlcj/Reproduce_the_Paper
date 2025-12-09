@@ -1,15 +1,16 @@
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
-from config import *
-from satellite_model import NetworkManager
-from main import load_dnn_layers, create_task_slices
-from sac_agent import SACAgent
-from task_offloading import task_offloading_algorithm
-from partition_algorithm import adaptive_dnn_partitioning_algorithm
-from satellite_model import DNNLayer
+from src.common.config import *
+from src.models.satellite_model import NetworkManager, DNNLayer
+from src.common.utils import load_dnn_layers, create_task_slices
+from src.models.sac_agent import SACAgent
+from src.algorithms.task_offloading import task_offloading_algorithm
+from src.algorithms.partition_algorithm import adaptive_dnn_partitioning_algorithm
 
 # Additional Baseline Partitioners
 def partition_random(layers, L):

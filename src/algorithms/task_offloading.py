@@ -1,9 +1,9 @@
 # src/task_offloading.py
-import networkx as nx
 import numpy as np
-from config import *
-from satellite_model import (
-    calculate_comp_delay, calculate_comp_energy,
+import networkx as nx
+from src.common.config import *
+from src.models.satellite_model import (
+    calculate_trans_rate, calculate_comp_delay, calculate_comp_energy,
     encode_state, decode_relative_action, calculate_uplink_rate # [修改] 导入解码函数 & 上传速率函数
 )
 

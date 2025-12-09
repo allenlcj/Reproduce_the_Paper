@@ -4,8 +4,9 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.distributions import Categorical
 import numpy as np
+import random
 from collections import deque, namedtuple
-from config import *
+from src.common.config import *
 
 # --- 1. SAC 网络架构 (参考 Table 4) ---
 class Actor(nn.Module):

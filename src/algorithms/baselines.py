@@ -1,12 +1,12 @@
-
 import random
 import numpy as np
 import networkx as nx
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from satellite_model import calculate_comp_delay, calculate_comp_energy, calculate_trans_rate, calculate_uplink_rate
-from config import *
+from src.common.config import *
+from src.models.satellite_model import calculate_comp_delay, calculate_comp_energy, calculate_trans_rate
+from src.algorithms.task_offloading import task_offloading_algorithm
 
 # --- 1. ROLA (Random Offloading Location Assignment) ---
 def run_rola(dnn_slices, initial_loc, net_manager):

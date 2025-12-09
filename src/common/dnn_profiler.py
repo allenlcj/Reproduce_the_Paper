@@ -1,9 +1,10 @@
+
 import torch
 import torch.nn as nn
 import torchvision.models as models
 import pandas as pd
 import numpy as np
-import os
+from src.common.config import *
 from sklearn.linear_model import LinearRegression
 
 # --- 1. 设备配置 ---
