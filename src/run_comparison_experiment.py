@@ -149,8 +149,11 @@ def plot_charts(x, res):
         axs[i].legend()
     
     plt.tight_layout()
-    plt.savefig('comparison_results.png')
-    print("\nResults saved to comparison_results.png")
+    plt.tight_layout()
+    if not os.path.exists('results'):
+        os.makedirs('results')
+    plt.savefig('results/comparison_results.png')
+    print("\nResults saved to results/comparison_results.png")
 
 if __name__ == "__main__":
     x_vals, y_data = run_comparison_experiment()

@@ -213,7 +213,9 @@ def plot_partition_results(x, db):
             
         plt.suptitle(f"DNN Partitioning Performance - {model}")
         plt.tight_layout()
-        fname = f"partition_results_{model}.png"
+        if not os.path.exists('results'):
+            os.makedirs('results')
+        fname = f"results/partition_results_{model}.png"
         plt.savefig(fname)
         print(f"Saved {fname}")
 

@@ -153,7 +153,6 @@ def task_offloading_algorithm(dnn_task_slices, initial_loc, sac_agent, net_manag
                     # 对应公式 (12): Energy = Power * Time
                     e_trans = P_S_TRAN * (q_bits / rate) * hops
             
-            
             O_t = (t_comp + t_trans) + (e_comp + e_trans)
             # 对应公式 (9) 
             total_T += (t_comp + t_trans)
