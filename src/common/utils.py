@@ -53,3 +53,37 @@ def create_task_slices(layers, L):
         slices.append(s)
         
     return slices
+
+def _create_slices_from_points(layers, points):
+    """
+    Helper to slice layers based on provided cut points.
+    Indices: [0, p1, p2, ..., N]
+    """
+    L = len(points) + 1 if points is not None else 1
+    
+    if points is None or len(points) == 0:
+        indices = [0, len(layers)]
+    else:
+        indices = [0] + list(points) + [len(layers)]
+        
+    slices = []
+    for k in range(L):
+        start, end = indices[k], indices[k+1]
+        
+        # Aggregate Workload
+        total_workload = sum(l.workload for l in layers[start:end])
+        
+        # Determine Data Bits (Output of the last layer in this slice)
+        # Exception: Last slice has 0 output to next satellite (final result is small)
+        if k < L - 1:
+            cut_layer = layers[end - 1]
+            data_bits = cut_layer.intermediate_data
+        else:
+            data_bits = 0
+            
+        s = DNNLayer(k, "Slice", 0, 0)
+        s.workload = total_workload
+        s.intermediate_data = data_bits 
+        slices.append(s)
+        
+    return slices

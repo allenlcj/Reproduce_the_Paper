@@ -122,7 +122,11 @@ def task_offloading_algorithm(dnn_task_slices, initial_loc, sac_agent, net_manag
                     # net_manager.satellites[u].update_comm_resource(b_k_hz)
             
             # 计算开销，公式(7)
-            t_comp = calculate_comp_delay(task.workload, s_dst_node.C_x)
+            # 计算开销，公式(7)
+            # [Fix] Include Queuing Delay: Wait Time (before current task) + Service Time
+            t_wait = (s_dst_node.q - task.workload) / s_dst_node.C_x
+            t_service = calculate_comp_delay(task.workload, s_dst_node.C_x)
+            t_comp = t_wait + t_service
             # 计算开销，公式(11)
             e_comp = calculate_comp_energy(task.workload, s_dst_node.C_x)
             

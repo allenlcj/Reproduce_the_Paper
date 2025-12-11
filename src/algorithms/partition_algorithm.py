@@ -87,3 +87,52 @@ def adaptive_dnn_partitioning_algorithm(layers, L, theta=THETA, delta=DELTA, zet
             best_workloads = workloads
             
     return best_points, best_workloads
+
+# --- Partitioning Baselines (for Fig 4 & 5 comparison) ---
+
+def partition_eosat(layers):
+    """
+    EO-SAT: No partitioning (Edge Only or Offload Entirely).
+    Effectively 1 slice containing all layers.
+    """
+    # Just sum everything into one mock slice object or logic
+    # In our system, this means L=1, no cut points.
+    # Return None points, and 1 combined workload
+    w_total = sum(l.workload for l in layers)
+    # Re-use calculation logic? 
+    # Or just return empty points []
+    return (), [w_total]
+
+def partition_rptsat(layers, L):
+    """
+    RPT-SAT: Random Partitioning.
+    Randomly select L-1 cut points.
+    """
+    N_l = len(layers)
+    if N_l < L: return (), [l.workload for l in layers] # Fallback
+    
+    candidate_points = list(range(1, N_l))
+    import random
+    points = tuple(sorted(random.sample(candidate_points, L - 1)))
+    
+    # Calculate workloads for these random points
+    # Reuse calculate_partition_metrics (ignoring VAR/T/E return, just want workloads)
+    _, _, _, workloads = calculate_partition_metrics(layers, points, L)
+    return points, workloads
+
+def partition_sosat(layers):
+    """
+    SO-SAT: Single-Point Optimal Partitioning (L=2).
+    Search for best single cut point minimizing Cost.
+    Using default weights specific to SO-SAT if mentioned, otherwise same as APT.
+    """
+    # L=2
+    return adaptive_dnn_partitioning_algorithm(layers, L=2)
+
+def partition_dosat(layers):
+    """
+    DO-SAT: Dual-Point Optimal Partitioning (L=3).
+    Search for best two cut points minimizing Cost.
+    """
+    # L=3
+    return adaptive_dnn_partitioning_algorithm(layers, L=3)
